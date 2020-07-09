@@ -1,0 +1,37 @@
+<style>
+  body {
+    font-family:Arial, Helvetica, sans-serif;
+  }
+</style>
+<h2>Rectangle Spiral</h2>
+<p>
+  Count: <input id="count" type="range" value="50" min="1" max="500"> <span id="range-value"></span>
+</p>
+
+<button id="create">Create</button>
+<button id="cancel">Cancel</button>
+<script>
+const countEl = document.querySelector('#count')
+const rangeValueEl = document.querySelector('#range-value')
+
+// Focus on our UI
+countEl.focus();
+
+function setRangeValue() {
+  rangeValueEl.innerText = countEl.value;
+}
+
+setRangeValue();
+
+countEl.addEventListener('input', (event) => { setRangeValue() });
+
+document.getElementById('create').onclick = () => {
+  const textbox = document.getElementById('count');
+  const count = parseInt(textbox.value, 10);
+  parent.postMessage({ pluginMessage: { type: 'create-rectangles', count } }, '*')
+}
+
+document.getElementById('cancel').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+}
+</script>
